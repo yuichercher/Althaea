@@ -7,26 +7,19 @@
 
 import SwiftUI
 import AppKit
-
 struct ContentView: View {
     var body: some View {
-        ClickThroughImage(nsImage: NSImage(named: "test")!)
-            // .frame(width: 256, height:256)
-            .background(Color.clear)
-            .ignoresSafeArea()
-//        SpriteView(
-//                    nsImage: NSImage(named: "walk2")!,  // 你的 sprite sheet 名
-//                    frameCount: 4,                     // 例如一共 4 帧
-//                    fps: 8                             // 每秒 8 帧
-//                )
-//                .frame(width: 256, height: 256)
-//                .background(Color.clear)
-//                .ignoresSafeArea()
+        // 假设 sprite sheet 名为 "walk2"，横向 4 帧，8fps
+        if let image = NSImage(named: "walk") {
+            SpriteView(nsImage: image, frameCount: 4, fps: 2, alphaThreshold: 10)
+                .frame(width: 256, height: 256)
+                .ignoresSafeArea()
+        } else {
+            Image("no-image")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 256, height: 256)
+                .clipped()
+        }
     }
-}
-
-#Preview("Light", traits: .sizeThatFitsLayout) {
-    ContentView()
-        .frame(width: 256, height: 256)
-        .padding()
 }
